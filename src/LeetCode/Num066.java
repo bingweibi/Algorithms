@@ -2,35 +2,38 @@ package LeetCode;
 
 public class Num066 {
     public static void main(String[] args) {
-        int[] digits ={9};
-        System.out.println(new Num066().plusOne(digits));
+        int[] digits ={1,9};
+        new Num066().plusOne(digits);
     }
     public int[] plusOne(int[] digits) {
-        boolean flag =false;
-        int i = digits.length-1;
-        if (digits[i] !=9){
-            digits[i] = digits[i] + 1;
-        }
-        for (int j = 0;j<digits.length;j++){
-            if (digits[i] == 9){
-                flag = true;
+        int len = digits.length;
+        boolean flag = true;
+        for (int i=len-1;i>=0;i--){
+            if (digits[i] != 9){
+                flag = false;
+                break;
             }
         }
         if (flag){
-            int[] temp = new int[i+2];
-            for (int k=0;k<temp.length;k++){
-                if (k==0){
-                    temp[k]=1;
-                }else {
-                    temp[k]=0;
-                }
+            int[] result = new int[++len];
+            for (int i=1;i<len;i++){
+                result[i] = 0;
             }
-            return temp;
-        }
-        while (digits[i] == 9) {
-            digits[i] = 0;
-            digits[i - 1] = digits[i - 1] + 1;
-            i--;
+            result[0] =1;
+            return result;
+        }else {
+            if (digits[len-1] == 9){
+                int i=len-1;
+                while (digits[i] == 9){
+                    i--;
+                }
+                digits[i]++;
+                for (int j=i+1;j<len;j++){
+                    digits[j] =0;
+                }
+            }else {
+                digits[len-1]++;
+            }
         }
         return digits;
     }

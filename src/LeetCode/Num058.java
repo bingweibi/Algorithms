@@ -5,18 +5,20 @@ public class Num058 {
         System.out.println(new Num058().lengthOfLastWord(""));
     }
     public int lengthOfLastWord(String s) {
-        int num = 0;
-        char[] chars = s.trim().toCharArray();
-        if ("".equals(s)){
-            return 0;
-        }
-        for (int i = chars.length-1;i>=0;i--){
-            if (chars[i] == ' '){
-                break;
-            }else {
-                ++num;
-            }
-        }
-        return num;
+//        int num = 0;
+//        char[] chars = s.trim().toCharArray();
+//        if ("".equals(s)){
+//            return 0;
+//        }
+//        for (int i = chars.length-1;i>=0;i--){
+//            if (chars[i] == ' '){
+//                break;
+//            }else {
+//                ++num;
+//            }
+//        }
+//        return num;
+        String[] temp = s.split(" ");
+        return temp.length == 0? 0:temp[temp.length-1].length();
     }
 }
