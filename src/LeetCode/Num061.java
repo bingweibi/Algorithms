@@ -1,14 +1,10 @@
 package LeetCode;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Num002 {
+public class Num061 {
 
     public static int[] stringToIntegerArray(String input) {
         input = input.trim();
@@ -57,83 +53,52 @@ public class Num002 {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         String line;
         while ((line = in.readLine()) != null) {
-            ListNode l1 = stringToListNode(line);
+            ListNode head = stringToListNode(line);
             line = in.readLine();
-            ListNode l2 = stringToListNode(line);
+            int k = Integer.parseInt(line);
 
-            ListNode ret = new Num002().addTwoNumbers(l1, l2);
+            ListNode ret = new Num061().rotateRight(head, k);
 
             String out = listNodeToString(ret);
 
             System.out.print(out);
         }
     }
-
     static public class ListNode {
         int val;
         ListNode next;
         ListNode(int x) { val = x; }
     }
 
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+    public ListNode rotateRight(ListNode head, int k) {
+        if (head == null){
+            return head;
+        }
+        ListNode node = head;
+        int count=1;
+        while (head.next!=null){
+            count++;
+            head = head.next;
+        }
+        int k1 = k%count;
+        if (k1 == 0){
+            return node;
+        }
+        for (int i=0;i<k1;i++){
+            node = rotata(node,count);
+        }
+        return node;
+    }
 
-        int i = 0,len1 = 0,len2 = 0,len;
-
-        ListNode node = new ListNode(0);
-        ListNode temp = node,templ1 = l1,templ2 = l2;
-        while (l1 !=null){
-            len1++;
-            l1 = l1.next;
+    private ListNode rotata(ListNode node,int count) {
+        ListNode temp = new ListNode(0);
+        temp.next = node;
+        while (node.next.next != null){
+            node = node.next;
         }
-        while (l2 !=null){
-            len2++;
-            l2 = l2.next;
-        }
-        len = Math.max(len1,len2);
-        List<Integer> sum = new ArrayList<>(len);
-        if (len1>len2){
-            while (templ1 != null){
-                sum.add(i,templ1.val);
-                i++;
-                templ1 = templ1.next;
-            }
-            i=0;
-            while (templ2 != null){
-                sum.set(i,sum.get(i)+templ2.val);
-                i++;
-                templ2 = templ2.next;
-            }
-        }else {
-            while (templ2 != null){
-                sum.add(i,templ2.val);
-                i++;
-                templ2 = templ2.next;
-            }
-            i=0;
-            while (templ1 != null){
-                sum.set(i,sum.get(i)+templ1.val);
-                i++;
-                templ1 = templ1.next;
-            }
-        }
-
-        for (int j=0;j<sum.size();){
-            if (sum.get(j)>=10){
-                node.val = sum.get(j)%10;
-                if (j != sum.size()-1){
-                    sum.set(j+1,sum.get(j+1)+1);
-                }else {
-                    sum.add(1);
-                }
-            }else {
-                node.val = sum.get(j);
-            }
-            ++j;
-            if (j<sum.size()){
-                node.next = new ListNode(0);
-                node = node.next;
-            }
-        }
-        return temp;
+        node.next.next = temp.next;
+        temp.next = node.next;
+        node.next = null;
+        return temp.next;
     }
 }

@@ -1,14 +1,10 @@
 package LeetCode;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Num002 {
+public class Num019 {
 
     public static int[] stringToIntegerArray(String input) {
         input = input.trim();
@@ -57,11 +53,11 @@ public class Num002 {
         BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         String line;
         while ((line = in.readLine()) != null) {
-            ListNode l1 = stringToListNode(line);
+            ListNode head = stringToListNode(line);
             line = in.readLine();
-            ListNode l2 = stringToListNode(line);
+            int n = Integer.parseInt(line);
 
-            ListNode ret = new Num002().addTwoNumbers(l1, l2);
+            ListNode ret = new Num019().removeNthFromEnd(head, n);
 
             String out = listNodeToString(ret);
 
@@ -74,65 +70,28 @@ public class Num002 {
         ListNode next;
         ListNode(int x) { val = x; }
     }
-
-    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-
-        int i = 0,len1 = 0,len2 = 0,len;
-
-        ListNode node = new ListNode(0);
-        ListNode temp = node,templ1 = l1,templ2 = l2;
-        while (l1 !=null){
-            len1++;
-            l1 = l1.next;
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode node = head,temp = node;
+        int count = 1;
+        while (head.next != null){
+            count++;
+            head = head.next;
         }
-        while (l2 !=null){
-            len2++;
-            l2 = l2.next;
+        if (count-n==0){
+            return node.next;
         }
-        len = Math.max(len1,len2);
-        List<Integer> sum = new ArrayList<>(len);
-        if (len1>len2){
-            while (templ1 != null){
-                sum.add(i,templ1.val);
-                i++;
-                templ1 = templ1.next;
-            }
-            i=0;
-            while (templ2 != null){
-                sum.set(i,sum.get(i)+templ2.val);
-                i++;
-                templ2 = templ2.next;
-            }
-        }else {
-            while (templ2 != null){
-                sum.add(i,templ2.val);
-                i++;
-                templ2 = templ2.next;
-            }
-            i=0;
-            while (templ1 != null){
-                sum.set(i,sum.get(i)+templ1.val);
-                i++;
-                templ1 = templ1.next;
-            }
-        }
-
-        for (int j=0;j<sum.size();){
-            if (sum.get(j)>=10){
-                node.val = sum.get(j)%10;
-                if (j != sum.size()-1){
-                    sum.set(j+1,sum.get(j+1)+1);
+        for (int i=0;i<count;i++){
+            if (count-n == i+1 && n != count){
+                if (node.next.next !=null){
+                    node.next = node.next.next;
                 }else {
-                    sum.add(1);
+                    node.next = null;
                 }
-            }else {
-                node.val = sum.get(j);
+                break;
+            }else if (count-n == i+1 && n==count){
+                node.next = null;
             }
-            ++j;
-            if (j<sum.size()){
-                node.next = new ListNode(0);
-                node = node.next;
-            }
+            node = node.next;
         }
         return temp;
     }
