@@ -15,7 +15,7 @@ public class Num141 {
           val = x;
           next = null;
       }
-  }
+    }
 
     public boolean hasCycle(ListNode head) {
         HashSet<ListNode> visited = new HashSet<>();
