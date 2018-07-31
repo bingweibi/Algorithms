@@ -16,7 +16,7 @@ public class Num112 {
         } else if (sum-root.val == 0 && root.left==null && root.right == null){
             return true;
         }else {
-            return hasPathSum(root.left,sum-root.val)||hasPathSum(root.right,sum-root.val);
+            return hasPathSum(root.left,sum-root.val)|| hasPathSum(root.right,sum-root.val);
         }
     }
 }
