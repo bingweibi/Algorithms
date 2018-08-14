@@ -6,7 +6,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Stack;
 
 public class Num002 {
 
@@ -77,63 +79,27 @@ public class Num002 {
 
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
 
-        int i = 0,len1 = 0,len2 = 0,len;
-
-        ListNode node = new ListNode(0);
-        ListNode temp = node,templ1 = l1,templ2 = l2;
-        while (l1 !=null){
-            len1++;
-            l1 = l1.next;
-        }
-        while (l2 !=null){
-            len2++;
-            l2 = l2.next;
-        }
-        len = Math.max(len1,len2);
-        List<Integer> sum = new ArrayList<>(len);
-        if (len1>len2){
-            while (templ1 != null){
-                sum.add(i,templ1.val);
-                i++;
-                templ1 = templ1.next;
+        ListNode l3 = new ListNode(0);
+        ListNode p = l1 , q = l2 , ls = l3;
+        int carry = 0;
+        while(p!=null || q!=null)
+        {
+            int x=(p!=null)? p.val :0;
+            int y=(q!=null)? q.val :0;
+            int sum = x + y + carry;
+            carry = sum/10;
+            ls.next = new ListNode(sum%10);
+            ls=ls.next;
+            if(p!=null){
+                p=p.next;
             }
-            i=0;
-            while (templ2 != null){
-                sum.set(i,sum.get(i)+templ2.val);
-                i++;
-                templ2 = templ2.next;
-            }
-        }else {
-            while (templ2 != null){
-                sum.add(i,templ2.val);
-                i++;
-                templ2 = templ2.next;
-            }
-            i=0;
-            while (templ1 != null){
-                sum.set(i,sum.get(i)+templ1.val);
-                i++;
-                templ1 = templ1.next;
+            if(q!=null){
+                q=q.next;
             }
         }
-
-        for (int j=0;j<sum.size();){
-            if (sum.get(j)>=10){
-                node.val = sum.get(j)%10;
-                if (j != sum.size()-1){
-                    sum.set(j+1,sum.get(j+1)+1);
-                }else {
-                    sum.add(1);
-                }
-            }else {
-                node.val = sum.get(j);
-            }
-            ++j;
-            if (j<sum.size()){
-                node.next = new ListNode(0);
-                node = node.next;
-            }
+        if(carry>0) {
+            ls.next = new ListNode(carry);
         }
-        return temp;
+        return l3.next;
     }
 }
