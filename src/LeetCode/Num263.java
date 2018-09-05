@@ -1,7 +1,5 @@
 package LeetCode;
 
-import java.awt.geom.FlatteningPathIterator;
-
 public class Num263 {
     public static void main(String[] args) {
         System.out.println(new Num263().isUgly(8));
