@@ -53,7 +53,7 @@ public class MergeSort {
             temp[k++] = a[j++];
         }
         // 把新数组中的数覆盖nums数组
-        System.arraycopy(temp, 0, a, 0 + low, temp.length);
+        System.arraycopy(temp, 0, a, low, temp.length);
     }
 }
 

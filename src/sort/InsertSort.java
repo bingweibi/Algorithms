@@ -11,23 +11,20 @@ package sort;
  */
 public class InsertSort {
     public static void main(String[] args) {
-        int[] unSort = {2,5,6,4,1,3,8,7,9};
-        for (int i=0;i<unSort.length-1;i++){
-            for (int j=0;j<=i;j++){
-                if (unSort[i+1]<unSort[j]){
-                    int temp = unSort[i+1];
-                    unSort[i+1] = unSort[j];
+        int[] unSort = {1,9,3,2,5,8,4};
+        System.out.println(new InsertSort().solution(unSort));
+    }
+    public int[] solution(int[] unSort){
+        int len = unSort.length;
+        for (int i=1;i<len;i++){
+            for (int j=i;j>0;j--){
+                if (unSort[j]<unSort[j-1]){
+                    int temp = unSort[j-1];
+                    unSort[j-1] = unSort[j];
                     unSort[j] = temp;
                 }
             }
-//            for (int anUnSort : unSort) {
-//                System.out.print(anUnSort + " ");
-//            }
-//            System.out.println();
         }
-
-        for (int anUnSort : unSort) {
-            System.out.print(anUnSort + " ");
-        }
+        return unSort;
     }
 }
