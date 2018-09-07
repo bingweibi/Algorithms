@@ -10,7 +10,7 @@ public class Main {
         boolean flag = false;
         if (line == 1){
             System.out.println(1);
-        }
+       }
         int[][]  temp = new int[line][2];
         for (int i=0;i<line;i++){
             temp[i][0] = sc.nextInt();
